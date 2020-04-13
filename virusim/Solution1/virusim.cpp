@@ -55,12 +55,13 @@ main(int argc, char* argv[])
       printf("Probabilidade, Percentual Infectado\n");
 
       // para cada probabilidade, calcula o percentual de pessoas infectadas
+      long t0 = time(NULL);
       for (int ip = 0; ip < n_probs; ip++) {
 
          prob_spread[ip] = prob_min + (double) ip * prob_step;
          percent_infected[ip] = 0.0;
          rand.setSeed(base_seed+ip); // nova seqüência de números aleatórios
-
+         int n = 0;
          // executa vários experimentos para esta probabilidade
          for (int it = 0; it < n_trials; it++) {
             // queima floresta até o fogo apagar
@@ -70,11 +71,11 @@ main(int argc, char* argv[])
 
          // calcula média dos percentuais de árvores queimadas
          percent_infected[ip] /= n_trials;
-
          // mostra resultado para esta probabilidade
-         printf("%lf, %lf\n", prob_spread[ip], percent_infected[ip]);
+         printf("%lf, %lf\n", n ,prob_spread[ip], percent_infected[ip]);
       }
-
+      long tt = time(NULL)-t0;
+      printf("%d total time\n",tt);
       delete[] prob_spread;
       delete[] percent_infected;
    }

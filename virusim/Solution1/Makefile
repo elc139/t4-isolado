@@ -1,4 +1,4 @@
-CXX       = g++
+CXX       = g++ -fopenmp
 CXXFLAGS  = -Wall -I.
 
 PROGRAM   = virusim

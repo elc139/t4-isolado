@@ -27,16 +27,17 @@ Population::propagateUntilOut(PersonPosn start_person, double prob_spread, Rando
 {
    int count;
 
-   reset();
+   reset(); //n²
    exposePerson(start_person);
 
    // queima a floresta até terminar o fogo
    count = 0;
-   while (isPropagating()) {
-      propagate(prob_spread, r);
+   while (isPropagating()) {//n²
+      propagate(prob_spread, r);//2*n²
       count++;
    }
 
+   //n² + m(3n²)
    return count;
 }
 

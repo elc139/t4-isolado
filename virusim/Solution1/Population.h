@@ -2,7 +2,6 @@
 #define __POPULATION_H
 
 #include "Random.h"
-
 //
 // Classe que representa uma população contaminável.
 //
