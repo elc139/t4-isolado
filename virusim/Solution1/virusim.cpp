@@ -11,16 +11,19 @@
 #include "Population.h"
 
 void
-checkCommandLine(int argc, char** argv, int& size, int& trials, int& probs)
+checkCommandLine(int argc, char** argv, int& size, int& trials, int& probs,int& nthreads)
 {
-   if (argc > 1) {
-      size = atoi(argv[1]);
-   }   
-   if (argc > 2) {
-      trials = atoi(argv[2]);
+   if (argc > 1){
+      nthreads = atoi(argv[1]);
    }
+   if (argc > 2) {
+      size = atoi(argv[2]);
+   }   
    if (argc > 3) {
-      probs = atoi(argv[3]);
+      trials = atoi(argv[3]);
+   }
+   if (argc > 5) {
+      probs = atoi(argv[4]);
    }   
 }
 
@@ -32,6 +35,7 @@ main(int argc, char* argv[])
    int population_size = 30;
    int n_trials = 5000;
    int n_probs = 101;
+   int nthreads = 2;
 
    double* percent_infected; // percentuais de infectados (saída)
    double* prob_spread;      // probabilidades a serem testadas (entrada)
@@ -40,11 +44,11 @@ main(int argc, char* argv[])
    double prob_step;
    int base_seed = 100;
 
-   checkCommandLine(argc, argv, population_size, n_trials, n_probs);
+   checkCommandLine(argc, argv, population_size, n_trials, n_probs,nthreads);
     
    try {
 
-      Population* population = new Population(population_size);
+      Population* population = new Population(population_size,nthreads);
       Random rand;
 
       prob_spread = new double[n_probs];
@@ -61,7 +65,6 @@ main(int argc, char* argv[])
          prob_spread[ip] = prob_min + (double) ip * prob_step;
          percent_infected[ip] = 0.0;
          rand.setSeed(base_seed+ip); // nova seqüência de números aleatórios
-         int n = 0;
          // executa vários experimentos para esta probabilidade
          for (int it = 0; it < n_trials; it++) {
             // queima floresta até o fogo apagar
@@ -71,11 +74,13 @@ main(int argc, char* argv[])
 
          // calcula média dos percentuais de árvores queimadas
          percent_infected[ip] /= n_trials;
-         // mostra resultado para esta probabilidade
-         printf("%lf, %lf\n", n ,prob_spread[ip], percent_infected[ip]);
+         printf("%lf, %lf\n", prob_spread[ip], percent_infected[ip]);
+
       }
       long tt = time(NULL)-t0;
+      //show results
       printf("%d total time\n",tt);
+
       delete[] prob_spread;
       delete[] percent_infected;
    }

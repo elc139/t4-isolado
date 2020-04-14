@@ -2,6 +2,8 @@
 #define __POPULATION_H
 
 #include "Random.h"
+#include <omp.h>
+
 //
 // Classe que representa uma população contaminável.
 //
@@ -9,7 +11,7 @@ class Population
 {
    public:
 
-      Population(int s);
+      Population(int s,int nthreads);
       ~Population();
 
       struct PersonPosn
@@ -28,7 +30,7 @@ class Population
       void reset();
       void exposePerson(PersonPosn p);
       void propagate(double prob_spread, Random& r);     
-
+      void propagate2(double prob_spread, Random& r,int* count);
       bool isPropagating();
       bool virusSpreads(double prob_spread, Random& r);
 
