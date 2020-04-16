@@ -28,18 +28,13 @@ Population::propagateUntilOut(PersonPosn start_person, double prob_spread, Rando
 {
    int count;
 
-   reset(); //n²
+   reset();
    exposePerson(start_person);
 
    // queima a floresta até terminar o fogo
    count = 0;
-   /*while (isPropagating()) {//n²
-      propagate(prob_spread, r);//2*n²
-      count++;
-   }*/
    propagate2(prob_spread, r,&count);
 
-   //n² + count*(3n²)
    return count;
 }
 
@@ -118,47 +113,6 @@ void Population::propagate2(double prob_spread,Random& r,int* count)
    if(exposed)
    		propagate2(prob_spread,r,&(*(count)++));
 }
-void 
-Population::propagate(double prob_spread, Random& r) 
-{
-
-   // pessoas expostas são infectadas pelo vírus
-   for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-         if (pop[i][j] == Exposed)   
-            pop[i][j] = Infected;
-      }
-   }
-
-   // pessoas não infectadas são expostas ao vírus quando se aproximam de uma infectada
-   for (int i = 0;  i < size; i++) {
-      for (int j = 0; j < size; j++) {
-         if (pop[i][j] == Infected) {
-            if (i != 0) { // pessoa ao norte
-               if (pop[i-1][j] == Uninfected && virusSpreads(prob_spread, r)) {
-                  pop[i-1][j] = Exposed;
-               }
-            }
-            if (i != size-1) { // pessoa ao sul
-               if (pop[i+1][j] == Uninfected && virusSpreads(prob_spread, r)) {
-                  pop[i+1][j] = Exposed;
-               }
-            }
-            if (j != 0) { // pessoa a oeste
-               if (pop[i][j-1] == Uninfected && virusSpreads(prob_spread, r)) {
-                  pop[i][j-1] = Exposed;
-               }
-            }
-            if (j != size-1) { // pessoa a leste
-               if (pop[i][j+1] == Uninfected && virusSpreads(prob_spread, r)) {
-                  pop[i][j+1] = Exposed;
-               }
-            }
-         }
-      }
-   }
-}
-
 void 
 Population::reset()
 {

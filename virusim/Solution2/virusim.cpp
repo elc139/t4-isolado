@@ -46,7 +46,7 @@ main(int argc, char* argv[])
    checkCommandLine(argc, argv, population_size, n_trials, n_probs,nthreads);
     
    try {
-
+      
       prob_spread = new double[n_probs];
       percent_infected = new double[n_probs];
       omp_set_num_threads(nthreads);
