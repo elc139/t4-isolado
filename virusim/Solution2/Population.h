@@ -22,6 +22,7 @@ class Population
       
       int propagateUntilOut(PersonPosn start_person, double prob_spread, Random& r);
       double getPercentInfected();
+      void propagate2(double prob_spread,Random& r,int* count);
 
    private:
 
