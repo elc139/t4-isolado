@@ -17,5 +17,5 @@ Speedup de 4 threads = 1.49 (227 seg)
 Para população de tamanho 192, 150 experimentos e probabilidades de 0 a 100%
 
 Single thread = 1023 segundos
-Speedup de 2 threads = x (x seg)
+Speedup de 2 threads = 1.51 (675 seg)
 Speedup de 4 threads = x (x seg)
