@@ -1,5 +1,0 @@
-Especificações da plataforma de testes
-
-Processador: Intel Core i5 5200U 2.20GHz
-Memória RAM: 8GB
-Sistema Operacional: Ubuntu 18.04.2
